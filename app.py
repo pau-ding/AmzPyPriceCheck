@@ -43,7 +43,7 @@ while i < 144:
 #
 # A4A - Request, Response and Status - Let's try our request, then we'll check to make sure it's a live page and return what we find
 #
-# A5A - Return Response - Filter data and format result to be returned to command line
+# A5A - Return Response - Return our final result
 #
 ##
 ######################################################################################################################################################################
