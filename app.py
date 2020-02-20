@@ -43,7 +43,7 @@ while i < 144:
 #
 # A4A - Request, Response and Status - Let's try our request, then we'll check to make sure it's a live page and return what we find
 #
-# A5A - Return Response - Return our final result
+# A5A - Return Response - Filter data and format result to be returned to command line
 #
 ##
 ######################################################################################################################################################################
@@ -117,16 +117,19 @@ price  = 0
 try:
     request = requests.get(url, headers=headers)
     if request.status_code == 200:
-        soup = bsoup(request.content, "lxml")
-        price = soup.find(id='priceblock_ourprice').getText()
+        try:
+            soup = bsoup(request.content, "lxml")
+            price = soup.find(id='priceblock_ourprice').getText()
+        except:
+            price = 0
     else:
         print('Couldn\'t find page, please check your url and try again...')
         print('ex: https://www.amazon.com/some-product-url ')
         print('You sent: ' + url ) 
 except:
-    print('Please enter a valid Amazon product URL ...') 
-    print('ex: python a-price-peek.py "https://www.amazon.com/some-product-url" ')
-    print('You sent: ' + url) 
+    print('Please enter a valid Amazon URL ...') 
+    print('ex: python app.py "https://www.amazon.com/some-product-url" ')
+    print('You sent: ' + url ) 
 
 
 
@@ -136,4 +139,6 @@ except:
 
 if price:
     print(price)
+else:
+    print('Failed to retrieve price.  Please try a different URL')
 
